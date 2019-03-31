@@ -7,6 +7,10 @@ function filters.import(module)
   end
 end
 
+function filters.insert(filter)
+  table.insert(container, filter)
+end
+
 function filters.all()
   return container
 end
