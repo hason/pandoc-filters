@@ -19,6 +19,8 @@ Replace `pandoc-citeproc` by native MkIV bibliography.
 ### [Comments](context/comments.lua)
 Convert MS Word "Track Changes " comments to PDF comments.
 
+<table><tr><td colspan=2>
+
 ```bash
 pandoc --lua-filter context/comments.lua -t context
 ```
@@ -38,6 +40,26 @@ Lorem ipsum dolor sit amet, \comment[author={Martin Hasoň}]{Comment text}consec
 
 ### [References](context/references.lua)
 
+Creates an invisible, referencable anchor texts from span with id.
+
+<table><tr><td colspan=2>
+
+```bash
+pandoc --lua-filter context/references.lua -t context
+```
+</td></tr><tr><td>
+
+```markdown
+The various [canal houses]{#houses} houses at the canal have nice interior.
+```
+
+</td><td>
+
+```tex
+The various \textreference[houses]{canal houses} houses at the canal have nice interior.
+```
+
+</td></tr></table>
 
 
 ### [Sections](context/sections.lua)

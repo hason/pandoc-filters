@@ -1,16 +1,21 @@
 local pwd = debug.getinfo(1).source:match("^@?(.*[/\\])")
-package.path = package.path .. ';' .. pwd .. '../?.lua'
+package.path = package.path .. ";" .. pwd .. "../?.lua"
 
-local pandoc = require('pandoc')
+local pandoc = require("pandoc")
 
 local function Span(el)
   local id = el.attr.identifier
-  if id and 'context' == FORMAT then
-    return {pandoc.RawInline(FORMAT, '\\textreference[' .. id .. ']{' .. pandoc.utils.stringify(el.content) .. '}'), el}
+  if id then
+    return {
+      pandoc.RawInline("context", "\\textreference[" .. id .. "]{"),
+      pandoc.Str(el.content),
+      pandoc.RawInline("context", "}"),
+      el
+    }
   end
 end
 
-if FORMAT == 'context' then
+if FORMAT == "context" then
   return {
     {Span = Span}
   }
