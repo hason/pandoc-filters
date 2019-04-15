@@ -5,16 +5,16 @@ local pandoc = require("pandoc")
 local List = require('pandoc.List')
 
 local function Span(el)
-  if List.includes(el.classes, "comment-start") then
+  if el.classes:includes("comment-start") then
     local author = el.attributes["author"]
-    local elements = {pandoc.RawInline("context", "\\comment")}
+    local elements = { pandoc.RawInline("context", "\\comment") }
     if nil ~= author then
       List.extend(
         elements,
         {
           pandoc.RawInline("context", "[author={"),
           pandoc.Str(author),
-          pandoc.RawInline("context", "]}")
+          pandoc.RawInline("context", "}]")
         }
       )
     end
@@ -34,7 +34,7 @@ end
 
 if FORMAT == "context" then
   return {
-    {Span = Span}
+    { Span = Span }
   }
 else
   return {}
